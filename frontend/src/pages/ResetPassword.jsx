@@ -16,7 +16,7 @@ export default function ResetPassword() {
         { newPassword: password }
       );
       setMessage(response.data.message);
-      setTimeout(() => navigate("/jobseeker/login"), 2000);
+      setTimeout(() => navigate("/login"), 2000);
     } catch (error) {
       setMessage(error.response?.data?.message || "An error occurred.");
     }

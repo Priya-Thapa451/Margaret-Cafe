@@ -11,7 +11,6 @@ import ResetPassword from "./pages/ResetPassword";
 import ForgotPassword from "./pages/ForgetPassword";
 import { Toaster } from "react-hot-toast";
 import CustomerPage from "./pages/customer/CustomerPage";
-import StaffPage from "./pages/staff/StaffPage";
 
 export default function App() {
   return (
@@ -31,7 +30,7 @@ export default function App() {
         </Route>
         <Route path="/staff" element={<StaffLayout />}>
           <Route index element={<StaffHomePage />} />
-          <Route path="/staff/home" element={<StaffPage />} />
+          <Route path="/staff/home" element={<StaffHomePage />} />
         </Route>
       </Routes>
     </>

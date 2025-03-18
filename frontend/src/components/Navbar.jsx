@@ -13,36 +13,36 @@ export default function Navbar() {
     navigate("/signup");
   };
   return (
-    <nav className="flex justify-between items-center p-3 z-10 bg-[#6E4523]">
-      <div className="flex items-center gap-4 ">
-        <img src={logo} className="h-20 w-auto"></img>
+    <nav className="flex justify-between items-center p-4 z-10 bg-[#6E4523]">
+      <div className="flex items-center gap-6">
+        <img src={logo} className="h-20 w-auto" alt="Logo"></img>
       </div>
-      <ul className="flex gap-4">
-        <li className="hover:text-yellow-700 transition duration-300 cursor-pointer font-semibold text-white">
+      <ul className="flex gap-6">
+        <li className="hover:text-yellow-700 transition duration-300 cursor-pointer font-semibold text-white text-lg font-serif">
           <Link to="/">Home</Link>
         </li>
-        <li className="hover:text-yellow-700 transition duration-300 cursor-pointer font-semibold  text-white">
+        <li className="hover:text-yellow-700 transition duration-300 cursor-pointer font-semibold text-white text-lg font-serif">
           <Link to="/courses">Trainings</Link>
         </li>
-        <li className="hover:text-yellow-700 transition duration-300 cursor-pointer font-semibold  text-white">
+        <li className="hover:text-yellow-700 transition duration-300 cursor-pointer font-semibold text-white text-lg font-serif">
           <Link to="/menu">Our Menu</Link>
         </li>
-        <li className="hover:text-yellow-700 transition duration-300 cursor-pointer font-semibold  text-white">
+        <li className="hover:text-yellow-700 transition duration-300 cursor-pointer font-semibold text-white text-lg font-serif">
           <Link to="/services">Reservation</Link>
         </li>
-        <li className="hover:text-yellow-700 transition duration-300 cursor-pointer font-semibold  text-white">
+        <li className="hover:text-yellow-700 transition duration-300 cursor-pointer font-semibold text-white text-lg font-serif">
           <Link to="/about">About Us</Link>
         </li>
       </ul>
-      <div className="hidden md:flex items-center gap-4">
+      <div className="hidden md:flex items-center gap-6">
         <button
-          className="p-2 font-bold text-white p bg-[#B47137] rounded"
+          className="px-6 py-3 font-medium text-white bg-[#B47137] rounded-lg hover:bg-[#9E5E2D] transition duration-300"
           onClick={handleLoginClick}
         >
           Login
         </button>
         <button
-          className="bg-orange-00 rounded p-2 font-bold text-white bg-[#B47137]"
+          className="px-6 py-3 font-medium text-white bg-[#B47137] rounded-lg hover:bg-[#9E5E2D] transition duration-300"
           onClick={handleSignUpClick}
         >
           SignUp

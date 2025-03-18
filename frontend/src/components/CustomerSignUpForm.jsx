@@ -82,8 +82,8 @@ export default function CustomerSignupForm() {
   };
 
   return (
-    <div className="flex items-center justify-center bg-gray-100 min-h-screen">
-      <div className="w-full max-w-md border-2 border-black p-6 bg-white rounded-lg shadow-md">
+    <div className="flex items-center justify-center">
+      <div className="w-full max-w-md border-2 border-black p-6 bg-white rounded-lg">
         <div className="font-semibold text-3xl mb-6 text-center">
           Customer Register
         </div>

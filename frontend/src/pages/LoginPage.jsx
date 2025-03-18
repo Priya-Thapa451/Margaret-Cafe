@@ -1,10 +1,10 @@
+import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { Link } from "react-router-dom"; // Import Link from react-router-dom for navigation
 
-export default function LoginPage() {
-  // Validation function
+export default function Login() {
   const Validation = (userInput) => {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
@@ -22,16 +22,14 @@ export default function LoginPage() {
     return errors;
   };
 
-  // State hooks
   const [userInput, setUserInput] = useState({
     email: "",
     password: "",
-    role: "USER", // Default role
+    role: "USER", // Default value, can be "STAFF" or "CUSTOMER"
   });
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
-  // Handle changes in form inputs
   const handleChange = (e) => {
     setUserInput({ ...userInput, [e.target.name]: e.target.value });
   };
@@ -40,7 +38,6 @@ export default function LoginPage() {
     setErrors({ ...errors, [e.target.name]: "" });
   };
 
-  // Form validation and error handling
   function handleSubmit(e) {
     e.preventDefault();
     const errors = Validation(userInput);
@@ -55,113 +52,103 @@ export default function LoginPage() {
     return errors;
   }
 
-  // Login function
-  const login = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     const errors = handleSubmit(e);
     if (Object.keys(errors).length > 0) return;
 
+    // Check userInput values
+    console.log(userInput); // Add a console log to check the payload
+
     try {
-      // Use the role from the state and determine the endpoint accordingly
       const endpoint =
         userInput.role === "STAFF"
           ? "http://localhost:3000/api/users/staff/login"
           : "http://localhost:3000/api/users/customer/login";
 
-      // Sending the login request with email, password, and role
-      const response = await axios.post(endpoint, userInput);
+      const response = await axios.post(endpoint, userInput, {
+        withCredentials: true, // Send cookies with the request
+      });
 
-      toast.success("Logged in successfully");
-      localStorage.setItem("token", response.data.token);
+      // Success - Show success toast message
+      toast.success("Logged in successfully!");
 
-      // Redirect based on role
+      // Navigate to different pages based on the role
       if (userInput.role === "STAFF") {
         navigate("/staff/home");
       } else {
         navigate("/customer/home");
       }
     } catch (error) {
-      console.error("Error Details:", error.response?.data); // Log full error details
-      toast.error(error.response?.data?.error || "Login failed");
+      // Show error toast if login failed
+      toast.error(
+        error.response?.data?.error || "Login failed! Please try again."
+      );
+      setErrors({ general: error.response?.data?.error || "Login failed!" });
+      console.error(error);
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-lg">
-        <h2 className="text-2xl font-bold text-center text-gray-800">
-          Login to Your Account
-        </h2>
-        <form className="space-y-4" onSubmit={login}>
-          {/* Email Field */}
-          <div className="flex flex-col">
-            <label htmlFor="email" className="mb-2 text-sm text-gray-600">
+    <div className="min-h-screen flex justify-center items-center bg-gradient-to-r  p-6">
+      <div className="bg-white p-10 w-full sm:w-96 rounded-2xl shadow-lg border-2 border-[#A5A9B3]">
+        <h3 className="text-center text-3xl font-semibold text-[#3A3A3A] mb-8">
+          Login
+        </h3>
+
+        <form className="w-full" onSubmit={handleLogin}>
+          <div className="mb-6">
+            <label className="text-base font-medium text-gray-700 block mb-2">
               Email Address
             </label>
             <input
               type="email"
               name="email"
-              placeholder="Enter your email"
-              className="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-700"
               value={userInput.email}
               onChange={handleChange}
               onBlur={handleBlur}
+              className="w-full p-4 bg-gray-100 border-2 border-[#A5A9B3] rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#6E4523] transition-all"
+              placeholder="Enter your email"
             />
             {errors.email && (
-              <p className="text-red-500 text-sm">{errors.email}</p>
+              <p className="text-red-600 text-sm mt-2">{errors.email}</p>
             )}
           </div>
 
-          {/* Password Field */}
-          <div className="flex flex-col">
-            <label htmlFor="password" className="mb-2 text-sm text-gray-600">
+          <div className="mb-6">
+            <label className="text-base font-medium text-gray-700 block mb-2">
               Password
             </label>
             <input
               type="password"
               name="password"
-              placeholder="Enter your password"
-              className="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-700"
               value={userInput.password}
               onChange={handleChange}
               onBlur={handleBlur}
+              className="w-full p-4 bg-gray-100 border-2 border-[#A5A9B3] rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#6E4523] transition-all"
+              placeholder="Enter your password"
             />
             {errors.password && (
-              <p className="text-red-500 text-sm">{errors.password}</p>
+              <p className="text-red-600 text-sm mt-2">{errors.password}</p>
             )}
           </div>
 
-          {/* Role Selection (Optional) */}
-          {/* If you need to provide a role selector, uncomment the following */}
-          {/* <div className="flex flex-col">
-            <label htmlFor="role" className="mb-2 text-sm text-gray-600">Role</label>
-            <select
-              name="role"
-              value={userInput.role}
-              onChange={handleChange}
-              className="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-700"
+          <div className="mb-6">
+            <button
+              type="submit"
+              className="w-full py-3 px-4 font-semibold text-white bg-[#6E4523] rounded-xl shadow-md hover:bg-[#935927] focus:outline-none transition-all"
             >
-              <option value="CUSTOMER">Customer</option>
-              <option value="STAFF">Staff</option>
-            </select>
-          </div> */}
-
-          {/* Login Button */}
-          <button
-            type="submit"
-            className="w-full px-4 py-2 text-white rounded-lg bg-[#6E4523] hover:bg-[#5a3a1d]"
-          >
-            Login
-          </button>
+              Log In
+            </button>
+          </div>
         </form>
 
-        {/* Signup Link */}
-        <p className="text-sm text-center text-gray-600">
-          Don't have an account?{" "}
-          <a href="/register" className="text-amber-950 hover:underline">
-            Sign up
-          </a>
-        </p>
+        {/* Forgot Password link */}
+        <div className="text-center mt-4">
+          <Link to="/forget" className="text-[#6E4523] hover:underline text-sm">
+            Forgot Password?
+          </Link>
+        </div>
       </div>
     </div>
   );
