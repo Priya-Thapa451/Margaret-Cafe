@@ -23,6 +23,7 @@ model User {
   orders             Order[]   // Orders placed by the user
   staff              Staff?
   isAdmin            Boolean  @default(false)  // Admin flag
+   refreshToken RefreshToken[]
 }
 
 model Staff {
@@ -39,6 +40,12 @@ model Admin {
   password String
 }
 
+model RefreshToken {
+    id     Int    @id @default(autoincrement())
+    token  String @unique
+    userId Int
+    user   User   @relation(fields: [userId], references: [id])
+}
 
 
 model Order {

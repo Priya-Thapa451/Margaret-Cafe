@@ -11,6 +11,9 @@ import ResetPassword from "./pages/ResetPassword";
 import ForgotPassword from "./pages/ForgetPassword";
 import { Toaster } from "react-hot-toast";
 import CustomerPage from "./pages/customer/CustomerPage";
+import AboutUs from "./pages/AboutUs";
+import ReservationPage from "./pages/customer/ReservationPage";
+import ProfilePage from "./pages/customer/ProfilePage"; // Import ProfilePage
 
 export default function App() {
   return (
@@ -27,7 +30,13 @@ export default function App() {
           <Route path="/verify-email/:token" element={<EmailVerify />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route path="/forget" element={<ForgotPassword />} />
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/reservation" element={<ReservationPage />} />
+          
+          {/* Add the profile page route */}
+          <Route path="/profile" element={<ProfilePage />} /> {/* This will load the profile page */}
         </Route>
+        
         <Route path="/staff" element={<StaffLayout />}>
           <Route index element={<StaffHomePage />} />
           <Route path="/staff/home" element={<StaffHomePage />} />
@@ -36,3 +45,4 @@ export default function App() {
     </>
   );
 }
+m 

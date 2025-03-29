@@ -240,25 +240,26 @@ const customerLogin = async (req, res) => {
     }
 
     // Generate JWT token
-    const token = jwt.sign(
+    const refreshToken = jwt.sign(
       { id: user.id, role: user.role },
-      process.env.JWT_SECRET || "default_secret", // Use environment variable
+      process.env.REFRESH_TOKEN_SECRET, // Use environment variable
       { expiresIn: "1h" }
     );
 
+    await prisma.refreshToken.create({
+      data: {
+        token: refreshToken,
+        userId: user.id,
+      },
+    });
+
     // Send response with token as a cookie
-    return res
-      .status(200)
-      .cookie("token", token, {
-        httpOnly: true, // Prevents client-side access
-        secure: process.env.NODE_ENV === "production", // Secure only in production
-        sameSite: "Strict",
-      })
-      .json({
-        message: "User logged in successfully",
-        user: { id: user.id, email: user.email, role: user.role },
-        token,
-      });
+    res.cookie("jwt", refreshToken, {
+      httpOnly: true,
+      sameSite: "strict",
+      maxAge: 24 * 60 * 60 * 1000,
+    });
+    res.json({ message: "Logged in successfully", token: refreshToken });
   } catch (error) {
     console.error("Login Error:", error);
     return res

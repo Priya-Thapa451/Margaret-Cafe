@@ -77,7 +77,7 @@ export default function Login() {
       if (userInput.role === "STAFF") {
         navigate("/staff/home");
       } else {
-        navigate("/customer/home");
+        navigate("/");
       }
     } catch (error) {
       // Show error toast if login failed
@@ -107,7 +107,7 @@ export default function Login() {
               value={userInput.email}
               onChange={handleChange}
               onBlur={handleBlur}
-              className="w-full p-4 bg-gray-100 border-2 border-[#A5A9B3] rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#6E4523] transition-all"
+              className="w-full p-4 bg-white border-2 border-[#A5A9B3] rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#6E4523] transition-all"
               placeholder="Enter your email"
             />
             {errors.email && (
@@ -125,7 +125,7 @@ export default function Login() {
               value={userInput.password}
               onChange={handleChange}
               onBlur={handleBlur}
-              className="w-full p-4 bg-gray-100 border-2 border-[#A5A9B3] rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#6E4523] transition-all"
+              className="w-full p-4 bg-white border-2 border-[#A5A9B3] rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#6E4523] transition-all"
               placeholder="Enter your password"
             />
             {errors.password && (

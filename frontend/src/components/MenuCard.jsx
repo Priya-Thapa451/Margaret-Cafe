@@ -1,18 +1,33 @@
-export default function MenuCard() {
+import React from "react";
+
+export default function MenuCard({
+  name,
+  description,
+  price,
+  image,
+  onAddToCart,
+}) {
   return (
-    <div className="card bg-base-100 w-96 shadow-xl">
-      <figure className="px-10 pt-10">
-        <img
-          src="https://sarahsvegankitchen.com/wp-content/uploads/2024/05/Vegan-Croissants-1.jpg"
-          alt="Bread"
-          className="rounded-xl"
-        />
-      </figure>
-      <div className="card-body items-center text-center">
-        <h2 className="card-title">Crossiant</h2>
-        <p>Freshly baked cake</p>
-        <div className="card-actions">
-          <button className="btn btn-primary bg-[#6E4523]">Buy</button>
+    <div className="max-w-xs bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105">
+      {/* Image Section */}
+      <img
+        src={image}
+        alt={name}
+        className="w-full h-48 object-cover rounded-t-lg"
+      />
+
+      {/* Content Section */}
+      <div className="p-4">
+        <h3 className="text-xl font-semibold text-[#B47137] mb-2">{name}</h3>
+        <p className="text-gray-700 text-sm mb-3">{description}</p>
+        <div className="flex justify-between items-center">
+          <p className="text-lg font-semibold text-[#B47137]">{price}</p>
+          <button
+            onClick={() => onAddToCart({ name, description, price, image })}
+            className="px-4 py-2 bg-[#B47137] text-white rounded-lg shadow-md hover:bg-[#A5612F] transition duration-300"
+          >
+            Add to Cart
+          </button>
         </div>
       </div>
     </div>

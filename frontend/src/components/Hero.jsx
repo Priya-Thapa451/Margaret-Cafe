@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import cafe from "../assets/Cafe.png";
 
 export default function Hero() {
@@ -15,15 +16,27 @@ export default function Hero() {
 
       {/* Text Content */}
       <div className="absolute flex flex-col items-center text-center text-white animate-fadeIn">
-        <h1 className="mb-5 text-5xl md:text-6xl font-extrabold tracking-wide drop-shadow-lg ">
+        <h1 className="mb-5 text-5xl md:text-6xl font-extrabold tracking-wide drop-shadow-lg">
           Margaret Cafe
         </h1>
         <p className="mb-5 text-lg md:text-xl italic opacity-90 animate-bounce">
           Sipping Serenity at the Coffee Bar.
         </p>
-        <button className="px-6 py-3 bg-[#B47137] hover:bg-[#8a5a28] text-white font-semibold rounded-lg transition duration-300 ease-in-out shadow-lg transform hover:scale-105">
-          Get Started
-        </button>
+
+        {/* Buttons with spacing */}
+        <div className="flex space-x-6">
+          <Link to="/about">
+            <button className="px-6 py-3 bg-[#B47137] hover:bg-[#8a5a28] text-white font-semibold rounded-lg transition duration-300 ease-in-out shadow-lg transform hover:scale-105">
+              About Us
+            </button>
+          </Link>
+
+          <Link to="/menu">
+            <button className="px-6 py-3 bg-[#B47137] hover:bg-[#8a5a28] text-white font-semibold rounded-lg transition duration-300 ease-in-out shadow-lg transform hover:scale-105">
+              Explore Menu
+            </button>
+          </Link>
+        </div>
       </div>
     </div>
   );
